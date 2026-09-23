@@ -5,6 +5,7 @@ export async function GET() {
     "User-agent: *",
     "Allow: /",
     "Disallow: /api/",
+    "Disallow: /admin/",
     `Sitemap: ${siteConfig.url}/sitemap-index.xml`,
   ];
 

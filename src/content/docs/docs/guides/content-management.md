@@ -41,3 +41,15 @@ with `locale: "id"`). See the [Internationalization guide](/docs/guides/internat
 
 Images can live in `src/assets` (optimized by Astro) or in the Cloudflare R2
 bucket for larger files. Reference R2 assets via their public URL.
+
+## Editing without Git (Decap CMS)
+
+A [Decap CMS](https://decapcms.org/) admin is available at `/admin` for
+editors who'd rather use a form-based UI than commit Markdown by hand. It
+edits the same files described above (`blog`, `pages`, `services`, `stack`,
+`authors`, `faqs`, `settings`), opens a pull request per change (editorial
+workflow), and requires no separate content store. `docs` isn't wired into
+the CMS since Starlight manages its own frontmatter schema.
+
+Editors sign in with GitHub. See [Environment Variables](/docs/deployment/environment-variables/)
+and `public/admin/config.yml` for the one-time OAuth setup.

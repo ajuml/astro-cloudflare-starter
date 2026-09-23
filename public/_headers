@@ -18,3 +18,10 @@
   Permissions-Policy: camera=(), microphone=(), geolocation=()
   Cross-Origin-Opener-Policy: same-origin
   Cross-Origin-Resource-Policy: same-origin
+
+# Decap CMS (/admin) loads its bundle from unpkg and needs eval + inline
+# scripts to run; this relaxed policy is scoped to /admin only so the rest
+# of the site keeps the strict CSP above. A more specific path match here
+# replaces (not merges) the Content-Security-Policy from the block above.
+/admin/*
+  Content-Security-Policy: default-src 'self'; script-src 'self' 'unsafe-inline' 'unsafe-eval' https://unpkg.com; style-src 'self' 'unsafe-inline' https://unpkg.com; img-src 'self' data: blob: https:; font-src 'self' data: https://unpkg.com; connect-src 'self' https://unpkg.com https://api.github.com https://api.netlify.com https://*.githubusercontent.com; frame-src 'self'; object-src 'none'; base-uri 'self'; form-action 'self' https://api.netlify.com; frame-ancestors 'none';

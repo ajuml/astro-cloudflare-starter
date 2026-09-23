@@ -1,0 +1,240 @@
+backend:
+  name: github
+  repo: milzamsz/astro-cloudflare-starter
+  branch: main
+  base_url: https://api.netlify.com
+  auth_endpoint: auth
+
+# `netlify dev` proxies a local git-backed backend at /admin so edits made
+# on localhost are written straight to the working tree instead of GitHub.
+local_backend: true
+
+publish_mode: editorial_workflow
+
+media_folder: public/images
+public_folder: /images
+
+collections:
+  - name: blog
+    label: Blog Posts
+    label_singular: Blog Post
+    folder: src/content/blog
+    create: true
+    slug: "{{slug}}"
+    extension: md
+    format: frontmatter
+    identifier_field: title
+    summary: "{{title}} — {{publishDate}}"
+    sortable_fields: [publishDate, title]
+    fields:
+      - { label: Title, name: title, widget: string }
+      - { label: Description, name: description, widget: text }
+      - { label: Locale, name: locale, widget: hidden, default: en }
+      - { label: Publish Date, name: publishDate, widget: datetime }
+      - { label: Updated At, name: updatedAt, widget: datetime, required: false }
+      - { label: Draft, name: draft, widget: boolean, default: false }
+      - { label: Featured, name: featured, widget: boolean, default: false }
+      - { label: Tags, name: tags, widget: list, default: [], required: false }
+      - { label: Author, name: author, widget: string, default: Admin }
+      - { label: Author ID, name: authorId, widget: relation, collection: authors, search_fields: [name], value_field: "{{slug}}", display_fields: [name], required: false }
+      - label: Unique ID
+        name: uid
+        widget: string
+        required: false
+        pattern: ["^[a-z0-9]+(?:-[a-z0-9]+)*$", "Lowercase letters, numbers, and hyphens only"]
+      - label: FAQs
+        name: faqs
+        widget: list
+        required: false
+        fields:
+          - { label: Question, name: question, widget: string }
+          - { label: Answer, name: answer, widget: text }
+      - { label: Table of Contents, name: toc, widget: boolean, required: false }
+      - { label: SVG Slug, name: svgSlug, widget: string, required: false }
+      - { label: Translation Key, name: translationKey, widget: string, required: false }
+      - { label: Body, name: body, widget: markdown }
+
+  - name: pages
+    label: Marketing Pages
+    label_singular: Page
+    folder: src/content/pages
+    create: true
+    slug: "{{slug}}"
+    extension: md
+    format: frontmatter
+    identifier_field: title
+    fields:
+      - { label: Translation Key, name: translationKey, widget: string, required: false }
+      - { label: Locale, name: locale, widget: hidden, default: en }
+      - { label: Slug, name: slug, widget: string }
+      - { label: Title, name: title, widget: string }
+      - { label: Description, name: description, widget: text }
+      - label: Sections
+        name: sections
+        widget: list
+        default: []
+        types:
+          - label: Hero
+            name: hero
+            widget: object
+            fields:
+              - { label: Type, name: type, widget: hidden, default: hero }
+              - { label: Title, name: title, widget: string, required: false }
+              - { label: Content, name: content, widget: text, required: false }
+          - label: Call to Action
+            name: cta
+            widget: object
+            fields:
+              - { label: Type, name: type, widget: hidden, default: cta }
+              - { label: Title, name: title, widget: string, required: false }
+              - { label: Content, name: content, widget: text, required: false }
+              - { label: Button Text, name: ctaText, widget: string, required: false }
+              - { label: Button Link, name: ctaHref, widget: string, required: false }
+          - label: Features
+            name: features
+            widget: object
+            fields:
+              - { label: Type, name: type, widget: hidden, default: features }
+              - { label: Title, name: title, widget: string, required: false }
+              - { label: Content, name: content, widget: text, required: false }
+              - label: Items
+                name: items
+                widget: list
+                required: false
+                fields:
+                  - { label: Title, name: title, widget: string, required: false }
+                  - { label: Description, name: description, widget: text, required: false }
+                  - { label: Icon, name: icon, widget: string, required: false, hint: "Lucide icon name, e.g. rocket" }
+          - label: FAQ
+            name: faq
+            widget: object
+            fields:
+              - { label: Type, name: type, widget: hidden, default: faq }
+              - { label: Title, name: title, widget: string, required: false }
+              - { label: Content, name: content, widget: text, required: false }
+              - label: Items
+                name: items
+                widget: list
+                required: false
+                fields:
+                  - { label: Title, name: title, widget: string, required: false }
+                  - { label: Description, name: description, widget: text, required: false }
+          - label: Trust
+            name: trust
+            widget: object
+            fields:
+              - { label: Type, name: type, widget: hidden, default: trust }
+              - { label: Title, name: title, widget: string, required: false }
+              - { label: Content, name: content, widget: text, required: false }
+              - label: Items
+                name: items
+                widget: list
+                required: false
+                fields:
+                  - { label: Title, name: title, widget: string, required: false }
+                  - { label: Description, name: description, widget: text, required: false }
+                  - { label: Icon, name: icon, widget: string, required: false }
+      - { label: Legal Page, name: isLegal, widget: boolean, default: false }
+      - { label: Order, name: order, widget: number, default: 0, value_type: int }
+      - { label: Body, name: body, widget: markdown, required: false }
+
+  - name: services
+    label: Services
+    label_singular: Service
+    folder: src/content/services
+    create: true
+    slug: "{{slug}}"
+    extension: md
+    format: frontmatter
+    identifier_field: title
+    fields:
+      - { label: Locale, name: locale, widget: hidden, default: en }
+      - { label: Slug, name: slug, widget: string }
+      - { label: Title, name: title, widget: string }
+      - { label: Description, name: description, widget: text }
+      - { label: Image, name: image, widget: image, required: false }
+      - { label: Featured, name: featured, widget: boolean, default: false }
+      - { label: Tags, name: tags, widget: list, default: [], required: false }
+      - { label: Features, name: features, widget: list, default: [], required: false }
+      - { label: Price Range, name: priceRange, widget: string, required: false, hint: "e.g. $500 - $3,000" }
+      - { label: Order, name: order, widget: number, default: 0, value_type: int }
+      - { label: Translation Key, name: translationKey, widget: string, required: false }
+      - { label: Body, name: body, widget: markdown }
+
+  - name: stack
+    label: Tech Stack
+    label_singular: Stack Item
+    folder: src/content/stack
+    create: true
+    slug: "{{slug}}"
+    extension: md
+    format: frontmatter
+    identifier_field: name
+    fields:
+      - { label: Name, name: name, widget: string }
+      - { label: Description, name: description, widget: text }
+      - { label: Version, name: version, widget: string }
+      - { label: URL, name: url, widget: string }
+      - { label: Icon, name: icon, widget: string, hint: "Iconify name, e.g. simple-icons:astro" }
+      - { label: Color (OKLCH), name: colorOklch, widget: string, hint: "e.g. 0.65 0.18 260" }
+      - { label: Order, name: order, widget: number, default: 0, value_type: int }
+      - { label: Body, name: body, widget: markdown, required: false }
+
+  - name: authors
+    label: Authors
+    label_singular: Author
+    folder: src/content/authors
+    create: true
+    slug: "{{slug}}"
+    extension: json
+    format: json
+    identifier_field: name
+    fields:
+      - { label: Name, name: name, widget: string }
+      - { label: Bio, name: bio, widget: text }
+      - { label: Avatar, name: avatar, widget: image, required: false }
+      - label: Social
+        name: social
+        widget: object
+        required: false
+        fields:
+          - { label: Twitter, name: twitter, widget: string, required: false }
+          - { label: GitHub, name: github, widget: string, required: false }
+          - { label: LinkedIn, name: linkedin, widget: string, required: false }
+          - { label: Email, name: email, widget: string, required: false }
+
+  - name: faqs
+    label: FAQs
+    label_singular: FAQ
+    folder: src/content/faqs
+    create: true
+    slug: "{{slug}}"
+    extension: json
+    format: json
+    identifier_field: question
+    fields:
+      - { label: Question, name: question, widget: string }
+      - { label: Answer, name: answer, widget: text }
+      - { label: Category, name: category, widget: string, required: false }
+      - { label: Order, name: order, widget: number, default: 0, value_type: int }
+      - { label: Locale, name: locale, widget: hidden, default: en }
+
+  - name: settings
+    label: Site Settings
+    files:
+      - name: general
+        label: General Settings
+        file: src/content/settings.yml
+        fields:
+          - { label: Name, name: name, widget: string }
+          - { label: Description, name: description, widget: text, required: false }
+          - { label: URL, name: url, widget: string, required: false }
+          - { label: Default Locale, name: defaultLocale, widget: hidden, default: en }
+          - { label: Analytics Provider, name: analyticsProvider, widget: select, options: [none, gtm, umami], default: none }
+          - { label: GTM ID, name: gtmId, widget: string, required: false }
+          - { label: Umami URL, name: umamiUrl, widget: string, required: false }
+          - { label: Umami Site ID, name: umamiId, widget: string, required: false }
+          - { label: Map Latitude, name: mapLatitude, widget: string, required: false }
+          - { label: Map Longitude, name: mapLongitude, widget: string, required: false }
+          - { label: Organization Name, name: orgName, widget: string, required: false }
+          - { label: Organization Email, name: orgEmail, widget: string, required: false }
