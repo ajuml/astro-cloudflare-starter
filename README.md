@@ -1,6 +1,6 @@
 # Astro Cloudflare Starter
 
-A production-ready marketing + blog + docs site built with **Astro 7** and **Cloudflare Pages**. English-first and multilanguage-ready. Content is managed with Git and Markdown — no CMS, no database.
+A production-ready marketing + blog + docs site built with **Astro 7** and **Cloudflare Pages**. English-first and multilanguage-ready. Content is managed with Git and Markdown, with an optional [Decap CMS](https://decapcms.org/) admin UI at `/admin` for editors who prefer a form over a pull request.
 
 ## Features
 
@@ -10,6 +10,7 @@ A production-ready marketing + blog + docs site built with **Astro 7** and **Clo
 - SEO defaults: canonical, hreflang, JSON-LD, Open Graph, sitemap, RSS, dynamic `llms.txt`
 - Optional Cloudflare R2 media storage + a secret-guarded cleanup worker
 - Static output — fast on the Cloudflare CDN, cheap to host
+- Optional Decap CMS admin (`/admin`) for editors, backed by GitHub via editorial-workflow PRs
 
 ## Quick Start
 
@@ -34,6 +35,7 @@ After clicking **Use this template**, update these:
 - [ ] `.env.example` → `.env`; set `SITE_URL`. Set `CLEANUP_SECRET` as a Cloudflare secret only if you use the R2 cleanup worker.
 - [ ] Content in `src/content/` (blog, services, pages, docs, settings).
 - [ ] `LICENSE` copyright holder and `CHANGELOG.md`.
+- [ ] `public/admin/config.yml` — `backend.repo` (and `branch` if not `main`) if you're using the Decap CMS admin at `/admin`. See the "Environment Variables" doc for the one-time GitHub OAuth setup.
 
 > Tip: update `src/config/site.config.ts` (name, author, email, social links, URL) to make this template yours.
 
@@ -63,7 +65,8 @@ pnpm test:e2e   # end-to-end tests (playwright)
 All content lives in `src/content` as Markdown/JSON and is type-checked via content
 collection schemas. Each entry uses `<slug>.md` with a `locale` frontmatter field
 (English by default). To add a language, see `docs/guides/internationalization`.
-Edit files and open a pull request — Cloudflare Pages rebuilds on merge.
+Edit files and open a pull request, or use the Decap CMS admin at `/admin`
+(GitHub login, opens a PR per change) — Cloudflare Pages rebuilds on merge.
 
 ## Deployment
 
