@@ -91,12 +91,12 @@ export interface SiteConfig {
 export const siteConfig: SiteConfig = {
   /* Core configuration — single source of truth for canonical/OG/sitemap/llms.txt.
    * Replace with your production domain when forking this template. */
-  url: "https://astro-cloudflare-starter.pages.dev",
-  name: "Astro Cloudflare",
+  url: "https://astro-cloudflare-starter.netlify.app/",
+  name: "praca.info",
   description:
-    "Marketing, blog, and docs starter built with Astro and Cloudflare Pages — multilanguage-ready",
-  author: "Milzam",
-  email: "milzamsz@gmail.com",
+    "Agencja pracy, oferty pracy, znajdź pracę, znajdź pracownika dzięki praca.info",
+  author: "praca.info",
+  email: "kontakt@praca.info",
   authorImage: "/images/author.jpg",
 
   /* Social links */
@@ -108,10 +108,10 @@ export const siteConfig: SiteConfig = {
     },
     {
       platform: "linkedin",
-      url: "https://www.linkedin.com/in/milzamsz/",
+      url: "https://www.linkedin.com/company/praca-info//",
       label: "LinkedIn",
     },
-    { platform: "email", url: "mailto:milzamsz@gmail.com", label: "Email" },
+    { platform: "email", url: "mailto:kontakt@praca.info", label: "Email" },
   ],
 
   /* Header settings */
