@@ -167,8 +167,8 @@ export const siteConfig: SiteConfig = {
       ring: "#171717",
     },
     logo: {
-      light: "/logos/logo-light.svg",
-      dark: "/logos/logo-dark.svg",
+      light: "https://praca.info/logo.svg",
+      dark: "https://praca.info/logo-white.svg",
     },
     favicon: "/favicon.svg",
   },
